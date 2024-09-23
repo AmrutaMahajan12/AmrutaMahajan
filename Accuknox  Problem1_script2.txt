@@ -1,0 +1,73 @@
+Test Case: Verify Frontend Displays Backend Message
+
+
+Test Steps:
+
+1. Send a request to the backend API to retrieve a message.
+2. Verify the backend returns a successful response (200 OK).
+3. Navigate to the frontend page that displays the message.
+4. Verify the frontend displays the message returned by the backend.
+
+
+Test Code (Selenium Java + TestNG + Rest Assured):
+
+
+
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import (Test Link);
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+import static org.testng.Assert.assertTrue;
+
+public class FrontendBackendIntegrationTest {
+
+    WebDriver driver = new ChromeDriver();
+
+    @Test
+    public void verifyFrontendDisplaysBackendMessage() {
+        // Step 1: Send request to backend API
+        RestAssured.baseURI = "(Test Link)";
+        Response response = RestAssured.given()
+                .when()
+                .get("/message");
+
+        // Step 2: Verify backend response
+        assertTrue(response.getStatusCode() == 200);
+
+        // Step 3: Navigate to frontend page
+        driver.get("(Test Link)");
+
+        // Step 4: Verify frontend displays message
+        WebElement messageElement = driver.findElement(By.cssSelector("#message"));
+        assertTrue(messageElement.isDisplayed());
+        assertTrue(messageElement.getText().equals(response.getBody().asString()));
+    }
+}
+
+
+
+Explanation:
+
+1. Send a GET request to the backend API to retrieve a message.
+2. Verify the backend returns a successful response (200 OK).
+3. Navigate to the frontend page using Selenium WebDriver.
+4. Find the element that displays the message using a CSS selector.
+5. Verify the element is displayed and its text matches the backend response.
+
+
+Assumptions:
+
+- Backend API endpoint: `(Test Link)
+- Frontend page URL: (Test Link)
+- Message element CSS selector: #message
+
+
+Note:
+
+- Replace (Test Link) with your actual backend and frontend URLs.
+- Update the CSS selector to match your frontend's message element.
+- This test assumes a simple message display; modify it to suit your specific requirements.

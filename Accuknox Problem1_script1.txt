@@ -1,0 +1,97 @@
+import (Test Link);
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.annotations.Test;
+import org.testng.asserts.Assertion;
+
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+import java.util.concurrent.TimeUnit;
+public class FrontendBackendIntegrationTest {
+
+    WebDriver driver = new ChromeDriver();
+    Actions actions = new Actions(driver);
+
+    @Test
+    public void verifyLoginFunctionality() {
+        // Frontend verification
+        driver.get("(Test Link)");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        // Enter valid username and password
+        WebElement username = driver.findElement(By.name("username"));
+        username.sendKeys("testuser");
+
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys("testpassword");
+
+        // Click Login button
+        WebElement loginButton = driver.findElement(By.xpath("//button[@type='submit']"));
+        loginButton.click();
+public class FrontendBackendIntegrationTest {
+
+    WebDriver driver = new ChromeDriver();
+    Actions actions = new Actions(driver);
+
+    @Test
+    public void verifyLoginFunctionality() {
+        // Frontend verification
+        driver.get("(Test Link)");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+        // Enter valid username and password
+        WebElement username = driver.findElement(By.name("username"));
+        username.sendKeys("testuser");
+
+        WebElement password = driver.findElement(By.name("password"));
+        password.sendKeys("testpassword");
+
+        // Click Login button
+        WebElement loginButton = driver.findElement(By.xpath("//button[@type='submit']"));
+        loginButton.click();
+Explanation:
+
+1. Open Chrome browser and navigate to the login page.
+2. Enter valid username and password.
+3. Click the Login button.
+4. Verify successful login by checking the presence of a welcome message.
+5. Send a GET request to the backend API to verify login status.
+6. Verify API response status code (200) and response body.
+7. Close browser.
+
+
+Note:
+
+- Replace (Test Link) with your application's URL.
+- Update element locators (e.g., By.name("username")) according to your application.
+- This script assumes a simple login functionality; modify it to suit your specific requirements.
+- Ensure you have the necessary dependencies (Selenium, TestNG, Rest Assured) in your project.
+
+
+
+
+Maven Dependencies:
+
+
+<dependencies>
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-java</artifactId>
+        <version>4.1.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>7.4.0</version>
+    </dependency>
+    <dependency>
+        <groupId>io.rest-assured</groupId>
+        <artifactId>rest-assured</artifactId>
+        <version>4.4.0</version>
+    </dependency>
+</dependencies>

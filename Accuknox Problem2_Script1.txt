@@ -1,0 +1,61 @@
+Here's a Bash script that monitors Linux system health:
+** Using Bash develop script that monitors the health of Linux system.
+ IT should check CPU usage,memory usage,disk space and running process 
+ and if these metrics exceed predefined threshold (eg. CPU usage> 80%)
+ the script should send an alert  to console or a log file. ******
+ 
+
+system_health_monitor.sh
+
+bash
+#!/bin/bash
+
+# Define thresholds
+CPU_THRESHOLD=80
+MEM_THRESHOLD=90
+DISK_THRESHOLD=85
+PROCESS_THRESHOLD=500
+
+# Define log file
+LOG_FILE=/var/log/system_health.log
+
+# Function to send alert
+send_alert() {
+  local MESSAGE=$1
+  echo "$(date) - $MESSAGE" >> $LOG_FILE
+  echo "$MESSAGE"
+}
+# Monitor CPU usage
+CPU_USAGE=$(top -b -n 1 | grep "Cpu(s)" | awk '{print $2}' | cut -d. -f1)
+if [ $CPU_USAGE -gt $CPU_THRESHOLD ]; then
+  send_alert "CPU usage exceeded $CPU_THRESHOLD% ($CPU_USAGE%)"
+fi
+
+# Monitor memory usage
+MEM_USAGE=$(free -m | grep "Mem" | awk '{print $3/$2*100}' | cut -d. -f1)
+if [ $MEM_USAGE -gt $MEM_THRESHOLD ]; then
+  send_alert "Memory usage exceeded $MEM_THRESHOLD% ($MEM_USAGE%)"
+fi
+
+# Monitor disk space
+DISK_USAGE=$(df -h / | grep -v "Filesystem" | awk '{print $5}' | cut -d% -f1)
+if [ $DISK_USAGE -gt $DISK_THRESHOLD ]; then
+  send_alert "Disk space exceeded $DISK_THRESHOLD% ($DISK_USAGE%)"
+fi
+# Monitor running processes
+PROCESS_COUNT=$(ps -ef | wc -l)
+if [ $PROCESS_COUNT -gt $PROCESS_THRESHOLD ]; then
+  send_alert "Number of running processes exceeded $PROCESS_THRESHOLD ($PROCESS_COUNT)"
+fi
+
+Explanation:
+
+1. Define thresholds for CPU, memory, disk space, and running processes.
+2. Define a log file to store alerts.
+3. Create a function send_alert to log and print alerts.
+4. Monitor CPU usage using top command.
+5. Monitor memory usage using free command.
+6. Monitor disk space using df command.
+7. Monitor running processes using ps command.
+8. Compare metrics with thresholds and send alerts if exceeded.
+
